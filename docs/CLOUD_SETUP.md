@@ -82,16 +82,17 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOi...
 
 ## 4. Vercel 部署
 
-1. [https://vercel.com](https://vercel.com) → 用 GitHub 登录 → **Add New → Project** → 选中 **ShouzhiLPB/你的仓库**。
-2. **Root Directory** 选 **`app`**（若仓库根就是 Next 项目则留空根目录）。
-3. **Environment Variables** 添加与本地相同的两项，并按需增加增量开关：
+1. [https://vercel.com](https://vercel.com) → 用 GitHub 登录 → **Add New → Project** → 选中 **ShouzhiLPB/nihongo-nook**。
+2. **Root Directory 必须填 `app`**（本仓库是 npm workspace：Next 应用在 `app/` 下；**不要留空**，否则 Vercel 可能当成静态站并在构建后找 **`public` 输出目录**，从而报错 `No Output Directory named "public" found`）。
+3. **Settings → General**：**Framework Preset** 选 **Next.js**；**Output Directory** 保持默认/留空（**不要**填 `public`；Next 的构建产物在 **`app/.next`**）。若你曾把 Output Directory 改成过 `public`，请删掉该覆盖项再 **Redeploy**。
+4. **Environment Variables** 添加与本地相同的两项，并按需增加增量开关：
 
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - （可选，且需已执行上表第 3 条 SQL）`NEXT_PUBLIC_CLOUD_DELTA_NOTES_FAVS=1`：笔记 / 收藏句子树可与 `stats` 等同走 RPC（**不**含课文主数组；未跑 SQL 时不要开）。
    - （可选，且需已执行上表第 4 条 SQL）`NEXT_PUBLIC_CLOUD_DELTA_EXTENDED=1`：**含**笔记/收藏 + **课文 / 词卡 / 句题 / 语法题 / 聊天会话** 等主数组子树 RPC；未跑第 4 条时不要开。
 
-4. **Deploy**。部署完成后把 Vercel 给的 **`https://xxx.vercel.app`** 发给朋友即可访问（免费额度内）。
+5. **Deploy**。部署完成后把 Vercel 给的 **`https://xxx.vercel.app`** 发给朋友即可访问（免费额度内）。
 
 ### 4.1 你已经跑完迁移 SQL、也在 Vercel 里填好两个变量之后——还要不要做什么？
 
