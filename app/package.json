@@ -12,10 +12,14 @@
   "bugs": {
     "url": "https://github.com/ShouzhiLPB/nihongo-nook/issues"
   },
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "next dev --webpack",
     "dev:clean": "node ./scripts/clean-next.mjs && next dev --webpack",
     "build": "next build --webpack",
+    "build:vercel": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",

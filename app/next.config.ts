@@ -12,13 +12,20 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   /** 父目录也有 package-lock 时，避免把 workspace 根误判为 tracing 根导致路径混乱 */
   outputFileTracingRoot: appDir,
-  webpack: (config, { dev }) => {
+};
+
+/**
+ * Vercel 构建环境会设置 VERCEL。Next 16 默认 `next build` 走 Turbopack；若此处保留自定义
+ * `webpack`，默认构建会失败。本地仍用 webpack 分支 + `npm run build`（--webpack）规避 Windows 下 dev cache 问题。
+ */
+if (!process.env.VERCEL) {
+  nextConfig.webpack = (config, { dev }) => {
     if (dev) {
       /** Windows 下持久化 cache 重命名失败曾导致 .next 半成品与 routes-manifest ENOENT */
       config.cache = false;
     }
     return config;
-  },
-};
+  };
+}
 
 export default nextConfig;
