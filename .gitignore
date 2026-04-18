@@ -1,0 +1,29 @@
+# Dependencies & build
+node_modules/
+**/.next/
+out/
+dist/
+*.tsbuildinfo
+
+# Env & secrets（切勿提交）
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# 本地根目录插图备份（正式路径为 app/public/picture.png）
+/picture.png
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+coverage/
+test-results/
+playwright-report/
+
+# 本仓库仅发布「日语学习 Web」相关代码；下列为本地其它资料，不纳入 GitHub
+kittentts/
+Langue源代码/

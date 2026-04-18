@@ -1,0 +1,25 @@
+{
+  "name": "日语学习",
+  "private": true,
+  "description": "日语学习小窝（Next.js）— 词卡、句译、语法、课文与云端同步",
+  "homepage": "https://github.com/ShouzhiLPB/nihongo-nook#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShouzhiLPB/nihongo-nook.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ShouzhiLPB/nihongo-nook/issues"
+  },
+  "workspaces": ["app"],
+  "scripts": {
+    "dev": "npm run dev -w app",
+    "dev:clean": "npm run dev:clean -w app",
+    "build": "npm run build -w app",
+    "start": "npm run start -w app",
+    "lint": "npm run lint -w app",
+    "test": "npm run test -w app",
+    "test:e2e": "npm run build -w app && npm run test:e2e -w app",
+    "verify": "npm run test -w app && npm run build -w app",
+    "verify:lint": "npm run lint -w app && npm run verify"
+  }
+}

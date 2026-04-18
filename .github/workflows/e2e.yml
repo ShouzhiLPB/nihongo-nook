@@ -1,0 +1,30 @@
+name: e2e
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Verify (Vitest + production build)
+        run: npm run verify
+      - name: Install Playwright Chromium
+        working-directory: app
+        run: npx playwright install --with-deps chromium
+      - name: Run E2E
+        working-directory: app
+        run: npm run test:e2e
+        env:
+          CI: true
