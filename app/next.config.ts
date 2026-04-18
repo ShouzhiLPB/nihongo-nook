@@ -3,6 +3,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const appDir = path.dirname(fileURLToPath(import.meta.url));
+/** npm workspace 仓库根（含根 package-lock.json） */
+const monorepoRoot = path.resolve(appDir, "..");
 
 /**
  * 不使用 next-pwa 包装：在部分环境下 Workbox / 预缓存与动态路由组合曾导致难以排查的问题。
@@ -11,7 +13,14 @@ const appDir = path.dirname(fileURLToPath(import.meta.url));
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   /** 父目录也有 package-lock 时，避免把 workspace 根误判为 tracing 根导致路径混乱 */
-  outputFileTracingRoot: appDir,
+  outputFileTracingRoot: monorepoRoot,
+  /**
+   * Monorepo 下 Turbopack 会误推断根目录；指向含 lockfile 的仓库根。
+   * @see https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory
+   */
+  turbopack: {
+    root: monorepoRoot,
+  },
 };
 
 /**
